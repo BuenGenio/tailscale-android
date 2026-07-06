@@ -36,6 +36,7 @@ android {
     compileSdkVersion 34
     defaultConfig {
         minSdkVersion 26
+        applicationId "hk.anthill.antscale"
         targetSdkVersion 35
         versionCode computeVersionCode()
         versionName getVersionProperty("VERSION_LONG")

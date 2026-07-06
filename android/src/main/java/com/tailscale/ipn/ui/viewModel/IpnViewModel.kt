@@ -171,6 +171,11 @@ open class IpnViewModel : ViewModel() {
     val client = Client(viewModelScope)
 
     val finalMaskedPrefs = maskedPrefs?.deepCopy() ?: Ipn.MaskedPrefs()
+    // antscale white-label: default logins target our headscale control plane
+    // unless an explicit control URL was provided (custom server / authkey).
+    if (finalMaskedPrefs.ControlURL == null) {
+      finalMaskedPrefs.ControlURL = "https://tun.anthill.hk"
+    }
     // Don't set WantRunning=true here. Setting it in editPrefs() triggers cc.Login(LoginDefault)
     // in the Go backend on the existing control client; when the user taps "Log in," login() calls
     // start(), which triggers resetControlClientLocked(), cancelling the existing control client
