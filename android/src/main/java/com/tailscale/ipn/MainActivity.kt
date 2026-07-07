@@ -513,8 +513,13 @@ class MainActivity : ComponentActivity() {
     }
     val url = urlString.toUri()
     try {
-      val customTabsIntent = CustomTabsIntent.Builder().build()
-      customTabsIntent.launchUrl(this, url)
+      // antscale: open the auth / registration URL in the user's real browser,
+      // not an in-app Custom Tab, so login and the device-approval callback happen
+      // in a full browser window. The Notifier.state collector above returns the
+      // app to the foreground once the control server authorizes the node.
+      val browserIntent =
+          Intent(Intent.ACTION_VIEW, url).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+      startActivity(browserIntent)
     } catch (e: Exception) {
       // Fallback to a regular browser if CustomTabsIntent fails
       try {

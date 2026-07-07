@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 package com.tailscale.ipn.ui.view
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.background
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -19,10 +23,20 @@ import com.tailscale.ipn.ui.theme.link
 
 @Composable
 fun PrimaryActionButton(onClick: () -> Unit, content: @Composable RowScope.() -> Unit) {
+  // antscale brand gradient (logo blue -> violet -> coral)
   Button(
       onClick = onClick,
       contentPadding = PaddingValues(vertical = 12.dp),
-      modifier = Modifier.fillMaxWidth(),
+      colors =
+          ButtonDefaults.buttonColors(
+              containerColor = Color.Transparent, contentColor = Color.White),
+      modifier =
+          Modifier.fillMaxWidth()
+              .background(
+                  brush =
+                      Brush.horizontalGradient(
+                          listOf(Color(0xFF6F8FD8), Color(0xFFA97FB8), Color(0xFFE0697F))),
+                  shape = ButtonDefaults.shape),
       content = content)
 }
 
